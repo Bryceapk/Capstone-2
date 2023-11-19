@@ -1,0 +1,33 @@
+.topimg{
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    height: 30vh;
+    width: 100%; 
+    object-fit: cover;
+}
+
+.dropdown{
+    text-align: center;  
+}
+
+.styled-select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    appearance: none; 
+    background-color: #fff;
+}
+
+.styled-select option {
+    background-color: #fff;
+    color: #333;
+}
+
+.styled-select option:hover {
+    background-color: #e0e0e0;
+}

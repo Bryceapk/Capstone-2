@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Enjoy The Outdoors</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="./parks.css">
+    <script src="./scripts/locationData.js"></script>
+    <script src="./scripts/parkTypeData.js"></script>
+    <script src="./scripts/nationalParkData.js"></script>
+    <style>
+        body {
+            vertical-align: top;
+        }
+
+        .card {
+            background-color: khaki;
+            width: 29vw;
+            border: 3px solid green;
+            margin: 0.1em 0.1em 0 0;
+            display: inline-block;
+            vertical-align: top;
+            height: 20vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img class="topimg" src="./images/Boston-Public-Garden.jpg">
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+            <a href="./home.html" class="w3-bar-item w3-button">Enjoy The Outdoors</a>
+
+            <div class="w3-right w3-hide-small">
+                <a href="./mountains.html" class="w3-bar-item w3-button">Mountains</a>
+                <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <h1>Parks</h1>
+    <div class="dropdown">
+        <select id="locationsList" class="styled-select">
+            <option value="">Select a Location:</option>
+        </select>
+        <select id="parkTypeList" class="styled-select">
+            <option value="">Select a Park Type:</option>
+        </select>
+        <div id="results">Results</div>
+    </div>
+    <div id="contact">
+        <p>Stay Updated On Events</p>
+        <form action="/action_page.php" target="_blank">
+            <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+            <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
+            <button class="w3-button w3-black w3-section" type="submit">
+                <i class="fa fa-paper-plane"></i> SUBMIT
+            </button>
+        </form>
+    </div>
+</body>
+<script>
+    locationsArray.forEach(location => locationsList.innerHTML += `<option>${location}</option>`);
+    parkTypesArray.forEach(pt => parkTypeList.innerHTML += `<option>${pt}</option>`);
+
+    let selectedLocation = "";
+    let selectedParkType = "";
+
+    locationsList.addEventListener("change", e => {
+        selectedLocation = e.target.value;
+        showResults();
+    });
+
+    parkTypeList.addEventListener("change", e => {
+        selectedParkType = e.target.value;
+        showResults();
+    });
+
+    function isMatch(p) {
+        return (selectedLocation == "" || p.State == selectedLocation) &&
+            (selectedParkType == "" || p.LocationName.includes(selectedParkType));
+    }
+
+    function getCard(p) {
+        const { LocationName, State, Latitude, Longitude } = p;
+
+        const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${Latitude},${Longitude}`;
+
+        return `
+            <div class="card">
+                ${LocationName}
+                <div><b>${State}</b></div>
+                <div>
+                    <a href="${googleMapsLink}" target="_blank">View on Google Maps</a>
+                </div>
+            </div>`;
+    }
+
+    function showResults() {
+        results.innerHTML = "";
+        if (selectedLocation !== "" && selectedParkType !== "") {
+            const filtered = nationalParksArray.filter(isMatch);
+            filtered.forEach(p => results.innerHTML += getCard(p));
+        } else {
+            results.innerHTML = "Select a Location and Park Type to see results.";
+    }}
+
+    showResults();
+</script>
+
+</html>

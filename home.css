@@ -1,0 +1,24 @@
+.both,
+video{
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    height: 30vh;
+    width: 100%; 
+    object-fit: cover;
+}
+
+.both{
+    text-align: center;
+    margin: auto;
+    text-align: center;
+    height: auto;
+}
+.both img{
+ height: 20vw;
+ object-fit: cover;
+ width: 20vw;
+}

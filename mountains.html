@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Enjoy The Outdoors</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="./scripts/mountainData.js"></script>
+    <link rel="stylesheet" href="./mountains.css">
+</head>
+
+<body>
+        <img class="topimg" src="./images/background2.jpg">
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+            <a href="./home.html" class="w3-bar-item w3-button">Enjoy The Outdoors</a>
+
+            <div class="w3-right w3-hide-small">
+                <a href="./parks.html" class="w3-bar-item w3-button">Parks</a>
+                <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+            </div>
+        </div>
+    </div>
+    <h1>Mountains</h1>
+    <div class="dropdown">
+        <select id="list" class="styled-select">
+            <option value="">Select a Mountain</option>
+        </select>
+        <p id="results"></p>
+    </div>
+
+<div id="contact">
+    <p>Stay Updated On Events</p>
+    <form action="/action_page.php" target="_blank">
+        <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+        <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
+        <button class="w3-button w3-black w3-section" type="submit">
+            <i class="fa fa-paper-plane"></i> SUBMIT
+        </button>
+    </form>
+    </div>
+
+    </div>
+</body>
+<script>
+    mountainsArray.forEach(mountain => {
+        const option = document.createElement("option");
+        option.innerHTML = mountain.name;
+        list.appendChild(option);
+    });
+    list.addEventListener("change", event => {
+        let mountain = mountainsArray.find(m => m.name == event.target.value);
+        results.innerHTML = `<h1>${mountain.name}</h1>`;
+        results.innerHTML += mountain.desc;
+        results.innerHTML += `<h3>Elevation: ${mountain.elevation} feet</h3>`;
+        results.innerHTML += `<h3>Effort: ${mountain.effort}</h3>`;
+        results.innerHTML += `<img src="./images/${mountain.img}">`;
+    });
+</script>
+
+</html>
